@@ -83,61 +83,52 @@ const Navbar = () => {
         {isOpen ? <FaTimes /> : <FaBars />}
       </button>
 
-      {/* Desplegable Móvil */}
-      {/* Desplegable Móvil (Mejorado con Vidrio Oscuro) */}
+      {/* Desplegable Móvil (Con Panel de Admin) */}
       {isOpen && (
-        <div className="absolute top-[70px] left-0 w-full md:hidden bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 shadow-2xl flex flex-col items-center py-8 gap-6 animate-fade-in-down z-40">
+        <div className="absolute top-[70px] left-0 w-full md:hidden bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 shadow-2xl flex flex-col items-center py-6 gap-6 animate-fade-in-down z-40 overflow-y-auto max-h-[85vh]">
              
-             <Link 
-                to="/" 
-                className="text-xl font-medium text-slate-200 hover:text-blue-400 transition" 
-                onClick={() => setIsOpen(false)}
-             >
-                Inicio
-             </Link>
-             
-             <Link 
-                to="/about" 
-                className="text-xl font-medium text-slate-200 hover:text-purple-400 transition" 
-                onClick={() => setIsOpen(false)}
-             >
-                Nosotros
-             </Link>
-             
-             <Link 
-                to="/blog" 
-                className="text-xl font-medium text-slate-200 hover:text-cyan-400 transition" 
-                onClick={() => setIsOpen(false)}
-             >
-                Blog
-             </Link>
+             {/* Enlaces Principales */}
+             <Link to="/" className="text-xl font-medium text-slate-200 hover:text-blue-400 transition" onClick={() => setIsOpen(false)}>Inicio</Link>
+             <Link to="/about" className="text-xl font-medium text-slate-200 hover:text-purple-400 transition" onClick={() => setIsOpen(false)}>Nosotros</Link>
+             <Link to="/blog" className="text-xl font-medium text-slate-200 hover:text-cyan-400 transition" onClick={() => setIsOpen(false)}>Blog</Link>
 
-             {/* Línea divisoria sutil */}
+             {/* --- SECCIÓN ADMIN (Solo visible para ti) --- */}
+             {user && user.role === 'admin' && (
+                <div className="w-full px-8">
+                    <div className="border border-blue-500/30 bg-blue-900/10 rounded-xl p-4">
+                        <p className="text-xs text-blue-400 font-bold uppercase text-center mb-3 tracking-wider">Panel de Administración</p>
+                        <div className="grid grid-cols-2 gap-3">
+                            <Link to="/admin/users" onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 p-3 bg-slate-800 rounded-lg text-sm text-white border border-slate-700 hover:bg-blue-600 transition">
+                                 Usuarios
+                            </Link>
+                            <Link to="/admin/messages" onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 p-3 bg-slate-800 rounded-lg text-sm text-white border border-slate-700 hover:bg-blue-600 transition">
+                                 Mensajes
+                            </Link>
+                            <Link to="/admin/new" onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 p-3 bg-green-900/30 text-green-400 border border-green-500/30 rounded-lg text-sm font-bold hover:bg-green-600 hover:text-white transition">
+                                + Proyecto
+                            </Link>
+                            <Link to="/admin/blog/new" onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 p-3 bg-purple-900/30 text-purple-400 border border-purple-500/30 rounded-lg text-sm font-bold hover:bg-purple-600 hover:text-white transition">
+                                + Blog
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+             )}
+
              <div className="w-1/3 h-[1px] bg-slate-800"></div>
 
+             {/* Botones de Auth */}
              {!user && (
                  <div className="flex flex-col gap-4 w-full px-10 max-w-sm">
-                    <Link 
-                        to="/login" 
-                        className="w-full text-center py-3 border border-slate-700 hover:border-white text-slate-300 hover:text-white rounded-xl transition font-bold" 
-                        onClick={() => setIsOpen(false)}
-                    >
-                        Entrar
-                    </Link>
-                    <Link 
-                        to="/register" 
-                        className="w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-xl font-bold shadow-lg shadow-blue-900/50" 
-                        onClick={() => setIsOpen(false)}
-                    >
-                        Registrarse
-                    </Link>
+                    <Link to="/login" className="w-full text-center py-3 border border-slate-700 text-slate-300 rounded-xl font-bold" onClick={() => setIsOpen(false)}>Entrar</Link>
+                    <Link to="/register" className="w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold" onClick={() => setIsOpen(false)}>Registrarse</Link>
                  </div>
              )}
              
              {user && (
                  <button 
                     onClick={() => { logout(); setIsOpen(false); }} 
-                    className="text-red-400 font-bold mt-2 hover:text-red-300 transition"
+                    className="text-red-400 font-bold mt-2 border border-red-500/30 px-6 py-2 rounded-lg hover:bg-red-500 hover:text-white transition"
                  >
                     Cerrar Sesión
                  </button>
