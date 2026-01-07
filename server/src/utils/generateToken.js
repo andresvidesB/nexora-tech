@@ -1,18 +1,19 @@
 import jwt from 'jsonwebtoken';
 
-const generateToken = (res, userId) => {
-    // 1. Crear el token con el ID del usuario
-    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-        expiresIn: '30d' // El token dura 30 días
-    });
+// En server/utils/generateToken.js (o donde crees la cookie)
 
-    // 2. Guardar el token en una cookie segura
-    res.cookie('jwt', token, {
-        httpOnly: true, // No accesible vía JavaScript del navegador (Seguridad XSS)
-        secure: false ,//process.env.NODE_ENV !== 'development', // Solo HTTPS en producción
-        sameSite: 'strict', // Protege contra ataques CSRF
-        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 días en milisegundos
-    });
+const generateToken = (res, userId) => {
+  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  });
+
+  // 👇 ESTA ES LA CONFIGURACIÓN MÁGICA PARA VERCEL + RENDER
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // ¡OBLIGATORIO en Render! (HTTPS)
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict', // ¡OBLIGATORIO para Cross-Site!
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 días
+  });
 };
 
 export default generateToken;
