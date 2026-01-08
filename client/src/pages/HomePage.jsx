@@ -87,9 +87,10 @@ const HomePage = () => {
                 Hola, soy <strong className="text-white">Samir Bertel</strong>. Ayudo a micro, pequeñas y medianas empresas a dar su primer paso digital de forma <strong>segura y eficiente.</strong>
               </p>
               <p className="text-slate-400 text-base">
-                Mi modelo es diferente: Tú cubres directamente el <strong>Hosting y Dominio</strong>. 
-                El desarrollo de tu web es mediante <strong>aporte voluntario</strong>. Mi ganancia real es ver tu negocio crecer, 
-                brindarte mantenimiento a futuro y contar con tu recomendación.
+               Trabajo de una forma distinta:
+Desarrollo tu sitio como si fuera para mi propio negocio, enfocado en tus clientes y en que puedas usarlo fácilmente desde el primer día.
+Sin procesos complicados ni pagos escondidos.
+Yo gano cuando tu negocio crece, cuando seguimos trabajando juntos y cuando me recomiendas.
               </p>
             </div>
 
